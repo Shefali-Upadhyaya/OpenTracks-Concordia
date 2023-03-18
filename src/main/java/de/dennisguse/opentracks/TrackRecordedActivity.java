@@ -321,7 +321,7 @@ public class TrackRecordedActivity extends AbstractTrackDeleteActivity implement
 
     public void goToViewTrackMap(View v) {
         Intent viewTrackMap = new Intent (this, ViewTrackMap.class);
-        startActivity(viewTrackMap);
+        //startActivity(viewTrackMap);
     }
 
 }
