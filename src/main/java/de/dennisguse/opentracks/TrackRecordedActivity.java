@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -317,4 +318,10 @@ public class TrackRecordedActivity extends AbstractTrackDeleteActivity implement
     private void onRecordingStatusChanged(RecordingStatus status) {
         recordingStatus = status;
     }
+
+    public void goToViewTrackMap(View v) {
+        Intent viewTrackMap = new Intent (this, ViewTrackMap.class);
+        startActivity(viewTrackMap);
+    }
+
 }
