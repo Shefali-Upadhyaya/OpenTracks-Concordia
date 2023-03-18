@@ -7,6 +7,7 @@
     android:scrollbarStyle="outsideOverlay">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/viewMap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -63,10 +64,9 @@
         <TextView
             android:id="@+id/stats_description_value"
             style="?attr/textAppearanceBody1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="255dp"
+            android:layout_height="57dp"
             app:layout_constrainedWidth="true"
-            app:layout_constraintEnd_toStartOf="@id/guideline3"
             app:layout_constraintStart_toStartOf="@id/stats_name_value"
             app:layout_constraintTop_toBottomOf="@id/stats_name_value"
             tools:text="Here will be a description that could be really long and it would show completely without problems." />
@@ -90,15 +90,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="stats_activity_type_icon,stats_name_value,stats_description_value" />
+            app:constraint_referenced_ids="stats_activity_type_icon,stats_name_value,stats_description_value"
+            tools:layout_editor_absoluteY="100dp" />
 
         <!-- Horizontal line -->
         <View
             android:id="@+id/stats_information_horizontal_line"
             style="@style/HorizontalLine"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_start_datetime_value" />
 
         <!-- Distance -->
@@ -109,8 +110,8 @@
             android:layout_height="wrap_content"
             android:text="@string/stats_distance"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_information_horizontal_line" />
 
         <TextView
@@ -119,9 +120,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:value="@string/value_unknown"
+            app:layout_constraintEnd_toStartOf="@id/stats_distance_unit"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintEnd_toStartOf="@id/stats_distance_unit"
             app:layout_constraintTop_toBottomOf="@id/stats_distance_label"
             tools:text="100" />
 
@@ -131,8 +132,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/stats_distance_value"
-            app:layout_constraintStart_toEndOf="@id/stats_distance_value"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/stats_distance_value"
             tools:text="km" />
 
         <!-- Moving time -->
@@ -143,8 +144,8 @@
             android:layout_height="wrap_content"
             android:text="@string/stats_moving_time"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/stats_information_horizontal_line" />
 
         <TextView
@@ -153,8 +154,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:value="@string/value_unknown"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/stats_moving_time_label"
             tools:text="00:00:00" />
 
@@ -166,8 +167,8 @@
             android:layout_height="wrap_content"
             android:text="@string/stats_total_time"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/stats_moving_time_value" />
 
         <TextView
@@ -175,8 +176,8 @@
             style="@style/TextAppearance.OpenTracks.SecondaryValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/stats_total_time_label"
             tools:text="00:00:00" />
 
@@ -186,15 +187,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="stats_total_time_value,stats_moving_time_value" />
+            app:constraint_referenced_ids="stats_total_time_value,stats_moving_time_value"
+            tools:layout_editor_absoluteY="295dp" />
 
         <!-- Horizontal line -->
         <View
             android:id="@+id/stats_speed_horizontal_line"
             style="@style/HorizontalLine"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_time_barrier" />
 
         <!-- Speed/Pace max -->
@@ -204,8 +206,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_speed_horizontal_line"
             tools:text="Max. Speed" />
 
@@ -215,9 +217,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:value="@string/value_unknown"
+            app:layout_constraintEnd_toStartOf="@id/stats_max_speed_unit"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintEnd_toStartOf="@id/stats_max_speed_unit"
             app:layout_constraintTop_toBottomOf="@id/stats_max_speed_label"
             tools:text="30.00" />
 
@@ -227,8 +229,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/stats_max_speed_value"
-            app:layout_constraintStart_toEndOf="@id/stats_max_speed_value"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/stats_max_speed_value"
             tools:text="km/h" />
 
         <!-- Avg. moving speed/pace -->
@@ -238,8 +240,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/stats_speed_horizontal_line"
             tools:text="Avg. Moving Speed" />
 
@@ -249,9 +251,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:value="@string/value_unknown"
+            app:layout_constraintEnd_toStartOf="@id/stats_moving_speed_unit"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/guideline2"
-            app:layout_constraintEnd_toStartOf="@id/stats_moving_speed_unit"
             app:layout_constraintTop_toBottomOf="@id/stats_moving_speed_label"
             tools:text="30.00" />
 
@@ -261,8 +263,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/stats_moving_speed_value"
-            app:layout_constraintStart_toEndOf="@id/stats_moving_speed_value"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/stats_moving_speed_value"
             tools:text="km/h" />
 
         <!-- Average speed/pace -->
@@ -272,8 +274,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/stats_moving_speed_value"
             tools:text="Avg. Speed" />
 
@@ -283,9 +285,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:value="@string/value_unknown"
+            app:layout_constraintEnd_toStartOf="@id/stats_average_speed_unit"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/guideline2"
-            app:layout_constraintEnd_toStartOf="@id/stats_average_speed_unit"
             app:layout_constraintTop_toBottomOf="@id/stats_average_speed_label"
             tools:text="30.00" />
 
@@ -295,8 +297,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/stats_average_speed_value"
-            app:layout_constraintStart_toEndOf="@id/stats_average_speed_value"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/stats_average_speed_value"
             tools:text="km/h" />
 
         <!-- Barrier -->
@@ -305,15 +307,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="stats_max_speed_value,stats_moving_speed_value,stats_average_speed_value" />
+            app:constraint_referenced_ids="stats_max_speed_value,stats_moving_speed_value,stats_average_speed_value"
+            tools:layout_editor_absoluteY="455dp" />
 
         <!-- Horizontal line -->
         <View
             android:id="@+id/stats_altitude_horizontal_line"
             style="@style/HorizontalLine"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_speed_barrier" />
 
         <!-- Altitude gain and loss -->
@@ -330,8 +333,8 @@
             android:layout_height="wrap_content"
             android:text="@string/stats_gain"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_altitude_horizontal_line" />
 
         <TextView
@@ -340,9 +343,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:value="@string/value_unknown"
+            app:layout_constraintEnd_toStartOf="@id/stats_altitude_gain_unit"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/guideline"
-            app:layout_constraintEnd_toStartOf="@id/stats_altitude_gain_unit"
             app:layout_constraintTop_toBottomOf="@id/stats_altitude_gain_label"
             tools:text="100" />
 
@@ -352,8 +355,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/stats_altitude_gain_value"
-            app:layout_constraintStart_toEndOf="@id/stats_altitude_gain_value"
             app:layout_constraintEnd_toStartOf="@id/guideline2"
+            app:layout_constraintStart_toEndOf="@id/stats_altitude_gain_value"
             tools:text="m" />
 
         <TextView
@@ -363,8 +366,8 @@
             android:layout_height="wrap_content"
             android:text="@string/stats_loss"
             app:layout_constrainedWidth="true"
-            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline2"
             app:layout_constraintTop_toBottomOf="@id/stats_altitude_horizontal_line" />
 
         <TextView
@@ -373,9 +376,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:value="@string/value_unknown"
+            app:layout_constraintEnd_toStartOf="@id/stats_altitude_loss_unit"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toEndOf="@id/guideline2"
-            app:layout_constraintEnd_toStartOf="@id/stats_altitude_loss_unit"
             app:layout_constraintTop_toBottomOf="@id/stats_altitude_loss_label"
             tools:text="100" />
 
@@ -385,8 +388,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@id/stats_altitude_loss_value"
-            app:layout_constraintStart_toEndOf="@id/stats_altitude_loss_value"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/stats_altitude_loss_value"
             tools:text="m" />
 
         <!-- Barrier -->
@@ -395,15 +398,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="bottom"
-            app:constraint_referenced_ids="stats_altitude_gain_value,stats_altitude_loss_value" />
+            app:constraint_referenced_ids="stats_altitude_gain_value,stats_altitude_loss_value"
+            tools:layout_editor_absoluteY="548dp" />
 
         <!-- Horizontal line -->
         <View
             android:id="@+id/stats_end_horizontal_line"
             style="@style/HorizontalLine"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintEnd_toStartOf="@id/guideline3"
+            app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_altitude_barrier" />
 
         <!-- Sensors data -->
@@ -414,6 +418,25 @@
             app:layout_constraintEnd_toStartOf="@id/guideline3"
             app:layout_constraintStart_toEndOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/stats_end_horizontal_line" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="77dp"
+            android:layout_height="57dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="6dp"
+            android:background="#FF5722"
+            android:backgroundTint="#00FFFFFF"
+            android:contentDescription="@string/about_description"
+            android:onClick="goToViewTrackMap"
+            android:tint="#FF5722"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/stats_description_value"
+            app:layout_constraintTop_toBottomOf="@+id/stats_name_value"
+            app:srcCompat="@drawable/ic_map_24dp"
+            tools:ignore="UseAppTint"
+            tools:srcCompat="@drawable/ic_map_24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
