@@ -21,7 +21,7 @@ import de.dennisguse.opentracks.util.StringUtils;
 import de.dennisguse.opentracks.util.TrackIconUtils;
 
 public class AggregatedStatisticsAdapter extends BaseAdapter {
-
+//  features/improvements
     private AggregatedStatistics aggregatedStatistics;
     private final Context context;
 
