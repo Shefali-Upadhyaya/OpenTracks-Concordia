@@ -1,9 +1,12 @@
 package de.dennisguse.opentracks.data.models;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,6 +16,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
+import de.dennisguse.opentracks.TrackRecordingActivity;
 
 public class LocationPoints extends Service implements LocationListener {
 
@@ -22,64 +32,40 @@ public class LocationPoints extends Service implements LocationListener {
     private Double e_latitude;
     private Double e_longitude;
 
-    private LocationManager locationManager;
-
-    public LocationPoints(Track.Id trackId){
-        //locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+    public LocationPoints(Track.Id trackId) {
         this.trackId = trackId;
     }
 
-    public void getS_latitudeLongitude() {
-       // if(getGpsStatus()){
-        try {
-            LocationListener locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    s_latitude = location.getLatitude();
-                    s_longitude = location.getLongitude();
-                }
-            };
-        }catch(Exception e){
+    public LocationPoints(Track.Id trackId, Double s_latitude, Double s_longitude, Double e_latitude, Double e_longitude){
+        this.trackId = trackId;
+        this.s_latitude = s_latitude;
+        this.s_longitude = s_longitude;
+        this.e_latitude = e_latitude;
+        this.e_longitude = e_longitude;
+    }
+
+    @SuppressLint("MissingPermission")
+    public void getS_latitudeLongitude(Location locationGPS) {
+        if (locationGPS != null) {
+            s_latitude = locationGPS.getLatitude();
+            s_longitude = locationGPS.getLongitude();
+        } else {
             Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
             s_latitude = 45.496944;
             s_longitude = -73.578056;
         }
-        /*else{
-            Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
-            s_latitude = 45.496944;
-            s_longitude = -73.578056;
-        }*/
     }
 
-    public void getE_latitudeLongitude() {
-        try {
-            LocationListener locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    e_latitude = location.getLatitude();
-                    e_longitude = location.getLongitude();
-                }
-            };
-        }catch(Exception e){
+    public void getE_latitudeLongitude(Location locationGPS) {
+        if (locationGPS != null) {
+            e_latitude = locationGPS.getLatitude();
+            e_longitude = locationGPS.getLongitude();
+
+        } else {
             Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
             e_latitude = 45.496944;
             e_longitude = -73.578056;
         }
-        /*if(getGpsStatus()){
-            LocationListener locationListener = new LocationListener() {
-                @Override
-                public void onLocationChanged(@NonNull Location location) {
-                    e_latitude = location.getLatitude();
-                    e_longitude = location.getLongitude();
-                }
-            };
-
-        }
-        else{
-            Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
-            e_latitude = 45.497778;
-            e_longitude = -73.578056;
-        }*/
     }
 
     public String makeStr(){
@@ -98,26 +84,5 @@ public class LocationPoints extends Service implements LocationListener {
     public void onLocationChanged(@NonNull Location location) {
 
     }
-
-    private Boolean getGpsStatus() {
-        ContentResolver contentResolver = getBaseContext().getContentResolver();
-        boolean gps_enabled = false;
-        boolean network_enabled = false;
-
-        try {
-            gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch(Exception ex) {}
-
-        try {
-            network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch(Exception ex) {}
-
-        if(!gps_enabled && !network_enabled) {
-            return false;
-        }
-        return true;
-    }
-
-
 
 }
