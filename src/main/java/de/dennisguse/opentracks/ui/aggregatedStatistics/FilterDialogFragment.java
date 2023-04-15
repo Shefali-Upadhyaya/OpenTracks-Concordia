@@ -35,7 +35,6 @@ public class FilterDialogFragment extends DialogFragment {
     public static final String KEY_FILTER_ITEMS = "filterItems";
 
     private FilterDialogListener filterDialogListener;
-    private ArrayList<FilterItem> filterItems = new ArrayList<>();
 
     public static void showDialog(FragmentManager fragmentManager) {
         FilterDialogFragment filterDialogFragment = new FilterDialogFragment();
@@ -54,6 +53,7 @@ public class FilterDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        ArrayList<FilterItem> filterItems;
         filterItems = getArguments().getParcelableArrayList(KEY_FILTER_ITEMS);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
