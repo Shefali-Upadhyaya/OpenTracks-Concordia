@@ -3,6 +3,7 @@ package de.dennisguse.opentracks;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Build;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import de.dennisguse.opentracks.chart.ChartFragment;
 import de.dennisguse.opentracks.chart.TrackDataHubInterface;
 import de.dennisguse.opentracks.data.ContentProviderUtils;
 import de.dennisguse.opentracks.data.TrackDataHub;
+import de.dennisguse.opentracks.data.models.LocationPoints;
 import de.dennisguse.opentracks.data.models.Track;
 import de.dennisguse.opentracks.databinding.TrackRecordingBinding;
 import de.dennisguse.opentracks.fragments.ChooseActivityTypeDialogFragment;
@@ -74,6 +76,8 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
     private TrackRecordingBinding viewBinding;
 
     private Track.Id trackId;
+
+    private LocationPoints loc;
 
     private RecordingStatus recordingStatus = TrackRecordingService.STATUS_DEFAULT;
 
@@ -211,6 +215,8 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
 
         trackRecordingServiceConnection.startConnection(this);
         trackDataHub.start();
+        loc = new LocationPoints(trackId);
+        loc.getS_latitudeLongitude();
     }
 
     @Override
@@ -241,6 +247,9 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
         PreferencesUtils.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
         trackRecordingServiceConnection.unbind(this);
         trackDataHub.stop();
+        loc.getE_latitudeLongitude();
+        SharedPreferences pref = this.getSharedPreferences("Location",Context.MODE_PRIVATE);
+        pref.edit().putString(String.valueOf(trackId),loc.makeStr());
     }
 
     @Override

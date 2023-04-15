@@ -23,10 +23,12 @@ import android.database.Cursor;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -52,7 +54,7 @@ import de.dennisguse.opentracks.stats.TrackStatisticsUpdater;
  * @author Rodrigo Damazio
  */
 //TODO register contentobserver only for exact URL (incl. trackId) to not filter here.
-public class TrackDataHub {
+public class TrackDataHub{
 
     /**
      * Target number of track points displayed by the diagrams (recommended).

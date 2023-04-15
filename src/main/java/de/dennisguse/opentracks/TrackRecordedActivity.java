@@ -18,6 +18,7 @@ package de.dennisguse.opentracks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.io.Serializable;
 
 import de.dennisguse.opentracks.chart.ChartFragment;
 import de.dennisguse.opentracks.chart.TrackDataHubInterface;
@@ -59,7 +62,7 @@ import de.dennisguse.opentracks.util.IntentUtils;
  * @author Rodrigo Damazio
  */
 //TODO Should not use TrackRecordingServiceConnection; only used to determine if there is NO current recording, to enable resume functionality.
-public class TrackRecordedActivity extends AbstractTrackDeleteActivity implements ConfirmDeleteDialogFragment.ConfirmDeleteCaller, TrackDataHubInterface {
+public class TrackRecordedActivity extends AbstractTrackDeleteActivity implements ConfirmDeleteDialogFragment.ConfirmDeleteCaller, TrackDataHubInterface, Serializable {
 
     private static final String TAG = TrackRecordedActivity.class.getSimpleName();
 
@@ -266,6 +269,11 @@ public class TrackRecordedActivity extends AbstractTrackDeleteActivity implement
         }
     }
 
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+
     private class CustomFragmentPagerAdapter extends FragmentStateAdapter {
 
         public CustomFragmentPagerAdapter(@NonNull FragmentActivity fa) {
@@ -321,6 +329,7 @@ public class TrackRecordedActivity extends AbstractTrackDeleteActivity implement
 
     public void goToViewTrackMap(View v) {
         Intent viewTrackMap = new Intent (this, ViewTrackMap.class);
+        viewTrackMap.putExtra("trackId", contentProviderUtils.getTrack(trackId).getId());
         startActivity(viewTrackMap);
     }
 
