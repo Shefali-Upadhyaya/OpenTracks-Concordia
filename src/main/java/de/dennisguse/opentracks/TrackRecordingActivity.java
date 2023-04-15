@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.location.Location;
 import android.location.LocationListener;
@@ -31,7 +30,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.dennisguse.opentracks.chart.ChartFragment;
@@ -85,6 +84,8 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
     private LocationPoints loc;
 
     private RecordingStatus recordingStatus = TrackRecordingService.STATUS_DEFAULT;
+
+    public static List<LocationPoints> locationPointsList = new ArrayList<LocationPoints>();
 
     private final TrackRecordingServiceConnection.Callback bindChangedCallback = (service, unused) -> {
         service.getRecordingStatusObservable()
@@ -275,6 +276,7 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
         loc.getE_latitudeLongitude(locationGPS);
 
         //Write to storage
+        locationPointsList.add(loc);
 
     }
 

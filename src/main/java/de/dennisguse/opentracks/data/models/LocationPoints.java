@@ -85,4 +85,7 @@ public class LocationPoints extends Service implements LocationListener {
 
     }
 
+    public Track.Id getTrackId() {
+        return this.trackId;
+    }
 }
