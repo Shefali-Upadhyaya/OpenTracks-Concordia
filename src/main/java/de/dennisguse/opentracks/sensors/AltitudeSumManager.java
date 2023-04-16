@@ -136,7 +136,7 @@ public class AltitudeSumManager implements SensorEventListener {
 
             altitudeLoss_m += altitudeChange.getAltitudeLoss_m();
 
-            lastAcceptedPressureValue_hPa = altitudeChange.getCurrentSensorValue_hPa();
+            lastAcceptedPressureValue_hPa = altitudeChange.getCurrentSensorValueHPa();
         }
 
         lastSeenSensorValue_hPa = value_hPa;
