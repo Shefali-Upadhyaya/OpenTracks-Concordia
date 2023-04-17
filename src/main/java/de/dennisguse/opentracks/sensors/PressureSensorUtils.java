@@ -20,35 +20,35 @@ public class PressureSensorUtils {
 
         private final float currentSensorValueHPa;
 
-        private final float altitudeChange_m;
+        private final float altitudeChangeM;
 
-        public AltitudeChange(float currentSensorValueHPa, float altitudeChange_m) {
+        public AltitudeChange(float currentSensorValueHPa, float altitudeChangeM) {
             this.currentSensorValueHPa = currentSensorValueHPa;
-            this.altitudeChange_m = altitudeChange_m;
+            this.altitudeChangeM = altitudeChangeM;
         }
 
         public float getCurrentSensorValueHPa() {
             return currentSensorValueHPa;
         }
 
-        public float getAltitudeChange_m() {
-            return altitudeChange_m;
+        public float getAltitudeChangeM() {
+            return altitudeChangeM;
         }
 
-        public float getAltitudeGain_m() {
-            return altitudeChange_m > 0 ? altitudeChange_m : 0;
+        public float getAltitudeGainM() {
+            return altitudeChangeM > 0 ? altitudeChangeM : 0;
         }
 
-        public float getAltitudeLoss_m() {
-            return altitudeChange_m < 0 ? -1 * altitudeChange_m : 0;
+        public float getAltitudeLossM() {
+            return altitudeChangeM < 0 ? -1 * altitudeChangeM : 0;
         }
     }
 
     /**
      * Applies exponential smoothing to sensor value before computation.
      */
-    public static AltitudeChange computeChangesWithSmoothing_m(float lastAcceptedSensorValue_hPa, float lastSeenSensorValue_hPa, float currentSensorValueHPa) {
-        float nextSensorValue_hPa = EXPONENTIAL_SMOOTHING * currentSensorValueHPa + (1 - EXPONENTIAL_SMOOTHING) * lastSeenSensorValue_hPa;
+    public static AltitudeChange computeChangesWithSmoothing_m(float lastAcceptedSensorValue_hPa, float lastSeenSensorValue_hPa, float currentSensorValue_hPa) {
+        float nextSensorValue_hPa = EXPONENTIAL_SMOOTHING * currentSensorValue_hPa + (1 - EXPONENTIAL_SMOOTHING) * lastSeenSensorValue_hPa;
 
         return computeChanges(lastAcceptedSensorValue_hPa, nextSensorValue_hPa);
     }
@@ -58,14 +58,14 @@ public class PressureSensorUtils {
         float lastSensorValue_m = SensorManager.getAltitude(p0, lastAcceptedSensorValue_hPa);
         float currentSensorValue_m = SensorManager.getAltitude(p0, currentSensorValueHPa);
 
-        float altitudeChange_m = currentSensorValue_m - lastSensorValue_m;
-        if (Math.abs(altitudeChange_m) < ALTITUDE_CHANGE_DIFF_M) {
+        float altitudeChangeM = currentSensorValue_m - lastSensorValue_m;
+        if (Math.abs(altitudeChangeM) < ALTITUDE_CHANGE_DIFF_M) {
             return null;
         }
 
         // Limit altitudeC change by ALTITUDE_CHANGE_DIFF and computes pressure value accordingly.
-        AltitudeChange altitudeChange = new AltitudeChange(currentSensorValueHPa, altitudeChange_m);
-        if (altitudeChange.getAltitudeChange_m() > 0) {
+        AltitudeChange altitudeChange = new AltitudeChange(currentSensorValueHPa, altitudeChangeM);
+        if (altitudeChange.getAltitudeChangeM() > 0) {
             return new AltitudeChange(getBarometricPressure(lastSensorValue_m + ALTITUDE_CHANGE_DIFF_M), ALTITUDE_CHANGE_DIFF_M);
         } else {
             return new AltitudeChange(getBarometricPressure(lastSensorValue_m - ALTITUDE_CHANGE_DIFF_M), -1 * ALTITUDE_CHANGE_DIFF_M);
