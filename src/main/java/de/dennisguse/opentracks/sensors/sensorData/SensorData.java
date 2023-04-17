@@ -66,7 +66,8 @@ public abstract class SensorData<T> {
     /**
      * Reset long term aggregated values (more than derived from previous SensorData). e.g. overall distance.
      */
-    abstract public void reset();
+    public void reset() {
+    }
 
     /**
      * Is the data recent considering the current time.
