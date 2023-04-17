@@ -25,9 +25,9 @@ public class AltitudeSumManager implements SensorEventListener {
 
     private boolean isConnected = false;
 
-    private float lastAcceptedPressureValue_hPa;
+    private float lastAcceptedPressureValueHPa;
 
-    private float lastSeenSensorValue_hPa;
+    private float lastSeenSensorValueHPa;
 
     private Float altitudeGain_m;
     private Float altitudeLoss_m;
@@ -43,7 +43,7 @@ public class AltitudeSumManager implements SensorEventListener {
             isConnected = sensorManager.registerListener(this, pressureSensor, (int) TimeUnit.SECONDS.toMicros(5), handler);
         }
 
-        lastAcceptedPressureValue_hPa = Float.NaN;
+        lastAcceptedPressureValueHPa = Float.NaN;
         reset();
     }
 
@@ -121,25 +121,25 @@ public class AltitudeSumManager implements SensorEventListener {
 
     @VisibleForTesting
     void onSensorValueChanged(float value_hPa) {
-        if (Float.isNaN(lastAcceptedPressureValue_hPa)) {
-            lastAcceptedPressureValue_hPa = value_hPa;
-            lastSeenSensorValue_hPa = value_hPa;
+        if (Float.isNaN(lastAcceptedPressureValueHPa)) {
+            lastAcceptedPressureValueHPa = value_hPa;
+            lastSeenSensorValueHPa = value_hPa;
             return;
         }
 
         altitudeGain_m = altitudeGain_m != null ? altitudeGain_m : 0;
         altitudeLoss_m = altitudeLoss_m != null ? altitudeLoss_m : 0;
 
-        PressureSensorUtils.AltitudeChange altitudeChange = PressureSensorUtils.computeChangesWithSmoothing_m(lastAcceptedPressureValue_hPa, lastSeenSensorValue_hPa, value_hPa);
+        PressureSensorUtils.AltitudeChange altitudeChange = PressureSensorUtils.computeChangesWithSmoothing_m(lastAcceptedPressureValueHPa, lastSeenSensorValueHPa, value_hPa);
         if (altitudeChange != null) {
             altitudeGain_m += altitudeChange.getAltitudeGain_m();
 
             altitudeLoss_m += altitudeChange.getAltitudeLoss_m();
 
-            lastAcceptedPressureValue_hPa = altitudeChange.getCurrentSensorValueHPa();
+            lastAcceptedPressureValueHPa = altitudeChange.getCurrentSensorValueHPa();
         }
 
-        lastSeenSensorValue_hPa = value_hPa;
+        lastSeenSensorValueHPa = value_hPa;
 
         Log.v(TAG, "altitude gain: " + altitudeGain_m + ", altitude loss: " + altitudeLoss_m);
     }
