@@ -141,6 +141,16 @@ public class ChartView extends View {
             }
             return true;
         }
+        /**
+         * Initiates flinging.
+         *
+         * @param velocityX velocity of fling in pixels per second
+         */
+        private void fling(int velocityX) {
+            int maxWidth = effectiveWidth * (zoomLevel - 1);
+            scroller.fling(getScrollX(), 0, velocityX, 0, 0, maxWidth, 0, 0);
+            invalidate();
+        }
 
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -369,15 +379,19 @@ public class ChartView extends View {
         paceSeries.setEnabled(!reportSpeed);
 
         // adding average moving pace in chart
+        int unitsystem_code = 0;
+        if(reportSpeed)
+            unitsystem_code = R.string.stats_average_moving_speed;
+        else unitsystem_code =  R.string.stats_average_moving_pace;
         seriesList.add(new ChartValueSeries(context,
                 0,
                 Integer.MAX_VALUE,
                 new int[]{1, 2, 5, 10, 15, 20, 30, 60, 120},
-                R.string.stats_average_moving_pace,
-                R.string.stats_average_moving_pace,
-                R.string.stats_average_moving_pace,
-                R.color.chart_heart_rate_fill,
-                R.color.chart_heart_rate_border,
+                unitsystem_code,
+                unitsystem_code,
+                unitsystem_code,
+                R.color.chart_avg_moving_speed_fill,
+                R.color.red_dark,
                 fontSizeSmall,
                 fontSizeMedium) {
             @Override
@@ -521,17 +535,6 @@ public class ChartView extends View {
             updateSeries();
             invalidate();
         }
-    }
-
-    /**
-     * Initiates flinging.
-     *
-     * @param velocityX velocity of fling in pixels per second
-     */
-    private void fling(int velocityX) {
-        int maxWidth = effectiveWidth * (zoomLevel - 1);
-        scroller.fling(getScrollX(), 0, velocityX, 0, 0, maxWidth, 0, 0);
-        invalidate();
     }
 
     /**
