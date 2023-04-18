@@ -55,6 +55,10 @@ public class MarkerDetailFragment extends Fragment {
     private static final String TAG = MarkerDetailFragment.class.getSimpleName();
     private static final String KEY_MARKER_ID = "markerId";
 
+    // Add Temperature and weather to table
+    String WEATHER = "weather";
+    String TEMPERATURE = "temperature";
+
     private static final Duration HIDE_TEXT_DELAY = Duration.ofSeconds(4);
 
     private MenuItem shareMarkerImageMenuItem;
@@ -263,5 +267,11 @@ public class MarkerDetailFragment extends Fragment {
                 + StringUtils.formatCoordinate(getContext(), marker.getLongitude()) + "]";
 
         ListItemUtils.setTextView(getActivity(), viewBinding.markerDetailMarkerLocation, value, addShadow);
+    }
+    private void setWeather() {
+        String value = marker.getTemperature()+" "+marker.getWeather();
+
+        //Change after G2 Implement the  fron-end and provide the ID
+        ListItemUtils.setTextView(getActivity(), viewBinding.markerDetailMarkerLocation, value, true);
     }
 }
