@@ -58,7 +58,6 @@ public class LocationPoints extends Service implements LocationListener {
             s_latitude = locationGPS.getLatitude();
             s_longitude = locationGPS.getLongitude();
         } else {
-            //Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
             s_latitude = 45.496944;
             s_longitude = -73.578056;
         }
@@ -70,7 +69,6 @@ public class LocationPoints extends Service implements LocationListener {
             e_longitude = locationGPS.getLongitude();
 
         } else {
-           // Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
             e_latitude = 45.496944;
             e_longitude = -73.578056;
         }
