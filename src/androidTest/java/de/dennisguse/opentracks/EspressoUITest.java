@@ -35,7 +35,7 @@ public class EspressoUITest {
 
     @LargeTest
     @Test
-    public void record_stop_resume_stop_finish() {
+    public void recordStopResumeStopFinish() {
         {
             // TrackListActivity: start recording
             ViewInteraction trackControllerRecordButton = onView(withId(R.id.track_list_fab_action));
