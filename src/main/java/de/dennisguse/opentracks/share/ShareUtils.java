@@ -80,7 +80,7 @@ public class ShareUtils {
     @Nullable
     public static Intent newShareFileIntent(Context context, Marker.Id... markerIds) {
         if (markerIds.length == 0) {
-            throw new RuntimeException("Need to share at least one marker.");
+            throw new ArithmeticException("Need to share at least one marker.");
         }
 
         String mime = null;
@@ -89,12 +89,13 @@ public class ShareUtils {
         ArrayList<Uri> uris = new ArrayList<>();
         for (Marker.Id markerId : markerIds) {
             Marker marker = contentProviderUtils.getMarker(markerId);
-            if (marker == null) {
-                Log.e(TAG, "MarkerId " + markerId.getId() + " could not be resolved.");
-                continue;
-            }
-            if (marker.getPhotoURI() == null) {
-                Log.e(TAG, "MarkerId " + markerId.getId() + " has no picture.");
+            if (marker == null || marker.getPhotoURI() == null) {
+                if(marker == null) {
+                    Log.e(TAG, "MarkerId " + markerId.getId() + " could not be resolved.");
+                }
+                if(marker.getPhotoURI() == null) {
+                    Log.e(TAG, "MarkerId " + markerId.getId() + " has no picture.");
+                }
                 continue;
             }
 

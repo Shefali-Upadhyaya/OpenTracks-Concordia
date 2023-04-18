@@ -10,6 +10,9 @@
     <string name="stats_fullscreen_while_recording_key" translatable="false">trackdetail_fullscreen_while_recording</string>
     <bool name="stats_fullscreen_while_recording_default" translatable="false">false</bool>
 
+    <string name="stats_show_fastest_avg_key" translatable="false">trackdetail_show_fastest_avg_speed</string>
+    <bool name="stats_show_fastest_avg_default" translatable="false">false</bool>
+
     <!-- Main settings -->
     <string name="settings_open_tracks_key" translatable="false">settingsOpenTracks</string>
 
@@ -60,6 +63,8 @@
 
     <string name="settings_import" translatable="false">settingsImport</string>
     <string name="settings_export" translatable="false">settingsExport</string>
+    <string name="settings_export_oneDrive" translatable="false">settingsExportOneDrive</string>
+    <string name="settings_import_oneDrive" translatable="false">settingsImportOneDrive</string>
 
     <!-- Stats layout customization default layout -->
     <string name="default_activity_key" translatable="false">defaultActivity</string>

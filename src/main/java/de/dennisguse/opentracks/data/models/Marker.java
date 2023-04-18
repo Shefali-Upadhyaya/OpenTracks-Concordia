@@ -58,6 +58,10 @@ public final class Marker {
     private Distance length;
     private Duration duration;
 
+    private Double temperatureCelsius;
+    private Double temperatureFahrenheit;
+    private String weatherCondition;
+
     @Deprecated //TODO Make an URI instead of String
     private String photoUrl = "";
 
@@ -82,7 +86,7 @@ public final class Marker {
     }
 
     @Deprecated
-    public Marker(String name, String description, String category, String icon, @NonNull Track.Id trackId, @NonNull TrackStatistics statistics, @NonNull TrackPoint trackPoint, String photoUrl) {
+    public Marker(String name, String description, String category, String icon, @NonNull Track.Id trackId, @NonNull TrackStatistics statistics, @NonNull TrackPoint trackPoint, String photoUrl, Double temperatureCelsius,Double temperatureFahrenheit,String weatherCondition ) {
         this(trackId, trackPoint);
         this.name = name;
         this.description = description;
@@ -91,6 +95,9 @@ public final class Marker {
         this.length = statistics.getTotalDistance();
         this.duration = statistics.getTotalTime();
         this.photoUrl = photoUrl;
+        this.temperatureCelsius=temperatureCelsius;
+        this.temperatureFahrenheit=temperatureFahrenheit;
+        this.weatherCondition=weatherCondition;
     }
 
     //TODO Is somehow part of the initialization process. Can we at least limit visibility?
@@ -261,6 +268,30 @@ public final class Marker {
 
     public Uri getPhotoURI() {
         return Uri.parse(photoUrl);
+    }
+    
+    public Double getTemperatureCelsius() {
+        return temperatureCelsius;
+    }
+    
+    public void setTemperatureCelsius(Double temperatureCelsius) {
+        this.temperatureCelsius = temperatureCelsius;
+    }
+    
+    public Double getTemperatureFahrenheit() {
+        return temperatureFahrenheit;
+    }
+    
+    public void setTemperatureFahrenheit(Double temperatureFahrenheit) {
+        this.temperatureFahrenheit = temperatureFahrenheit;
+    }
+    
+    public String getWeatherCondition() {
+        return weatherCondition;
+    }
+    
+    public void setWeatherCondition(String weatherCondition) {
+        this.weatherCondition = weatherCondition;
     }
 
     public boolean hasPhoto() {

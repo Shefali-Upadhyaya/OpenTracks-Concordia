@@ -111,8 +111,9 @@ public class FilterDialogFragment extends DialogFragment {
             datePickerTo.setVisibility(View.VISIBLE);
         });
 
+        ArrayList<FilterItem> finalFilterItems = filterItems;
         builder.setPositiveButton(android.R.string.ok, (dialog, which) -> filterDialogListener.onFilterDone(
-                filterItems,
+                finalFilterItems,
                 LocalDateTime.of(datePickerFrom.getYear(), datePickerFrom.getMonth() + 1, datePickerFrom.getDayOfMonth(), 0, 0, 0),
                 LocalDateTime.of(datePickerTo.getYear(), datePickerTo.getMonth() + 1, datePickerTo.getDayOfMonth(), 23, 59, 59)
         ));

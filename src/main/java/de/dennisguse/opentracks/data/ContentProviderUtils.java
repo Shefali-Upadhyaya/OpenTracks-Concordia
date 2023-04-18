@@ -354,7 +354,9 @@ public class ContentProviderUtils {
         int accuracyIndex = cursor.getColumnIndexOrThrow(MarkerColumns.ACCURACY);
         int bearingIndex = cursor.getColumnIndexOrThrow(MarkerColumns.BEARING);
         int photoUrlIndex = cursor.getColumnIndexOrThrow(MarkerColumns.PHOTOURL);
-
+        int temperatureCelsiusIndex=cursor.getColumnIndexOrThrow(MarkerColumns.TEMPERATURECELSIUS);
+        int temperatureFahrenheitIndex=cursor.getColumnIndexOrThrow(MarkerColumns.TEMPERATUREFAHRENHEIT);
+        int weatherIndex=cursor.getColumnIndexOrThrow(MarkerColumns.WEATHERCONDITION);
         Track.Id trackId = new Track.Id(cursor.getLong(trackIdIndex));
         Marker marker = new Marker(trackId, Instant.ofEpochMilli(cursor.getLong(timeIndex)));
 
@@ -396,6 +398,16 @@ public class ContentProviderUtils {
 
         if (!cursor.isNull(photoUrlIndex)) {
             marker.setPhotoUrl(cursor.getString(photoUrlIndex));
+        }
+
+        if (!cursor.isNull(temperatureCelsiusIndex)) {
+            marker.setTemperatureCelsius(cursor.getDouble(temperatureCelsiusIndex));
+        }
+        if (!cursor.isNull(temperatureFahrenheitIndex)) {
+            marker.setTemperatureFahrenheit(cursor.getDouble(temperatureFahrenheitIndex));
+        }
+        if (!cursor.isNull(weatherIndex)) {
+            marker.setWeatherCondition(cursor.getString(weatherIndex));
         }
         return marker;
     }
@@ -527,6 +539,9 @@ public class ContentProviderUtils {
         }
 
         values.put(MarkerColumns.PHOTOURL, marker.getPhotoUrl());
+        values.put(MarkerColumns.TEMPERATURECELSIUS, marker.getTemperatureCelsius());
+        values.put(MarkerColumns.TEMPERATUREFAHRENHEIT, marker.getTemperatureFahrenheit());
+        values.put(MarkerColumns.WEATHERCONDITION, marker.getWeatherCondition());
         return values;
     }
 

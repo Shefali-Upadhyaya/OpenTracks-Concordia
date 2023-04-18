@@ -17,6 +17,7 @@
 package de.dennisguse.opentracks;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -24,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +49,7 @@ import de.dennisguse.opentracks.services.RecordingStatus;
 import de.dennisguse.opentracks.services.TrackDeleteService;
 import de.dennisguse.opentracks.services.TrackRecordingService;
 import de.dennisguse.opentracks.services.TrackRecordingServiceConnection;
+import de.dennisguse.opentracks.settings.PreferencesUtils;
 import de.dennisguse.opentracks.settings.SettingsActivity;
 import de.dennisguse.opentracks.share.ShareUtils;
 import de.dennisguse.opentracks.ui.aggregatedStatistics.ConfirmDeleteDialogFragment;
@@ -85,6 +88,32 @@ public class TrackRecordedActivity extends AbstractTrackDeleteActivity implement
 
     private final TrackRecordingServiceConnection.Callback bindCallback = (service, unused) -> service.getRecordingStatusObservable()
             .observe(TrackRecordedActivity.this, this::onRecordingStatusChanged);
+
+    private final SharedPreferences.OnSharedPreferenceChangeListener sharedPreferenceChangeListener = (sharedPreferences, key) -> {
+        if (PreferencesUtils.isKey(R.string.stats_show_fastest_avg_key, key)) {
+            setAvgSpeedView();
+        }
+        if (key == null) return;
+
+        runOnUiThread(TrackRecordedActivity.this::invalidateOptionsMenu); //TODO Should not be necessary
+    };
+
+    @Override
+    public void onAttachedToWindow() {
+        setAvgSpeedView();
+        super.onAttachedToWindow();
+    }
+
+    private void setAvgSpeedView() {
+        boolean showOnTrackRecordedAvgSpeed = PreferencesUtils.shouldShowAvgSpeedOnTrackRecordedScreen();
+        TextView statsMovingSpeedValueTextView = findViewById(R.id.stats_moving_speed_value);
+
+        if (showOnTrackRecordedAvgSpeed) {
+//            statsMovingSpeedValueTextView.setText((CharSequence) contentProviderUtils.getTrack(trackId).getTrackStatistics().getMaxSpeed());
+        } else {
+//            statsMovingSpeedValueTextView.setText("30.00");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

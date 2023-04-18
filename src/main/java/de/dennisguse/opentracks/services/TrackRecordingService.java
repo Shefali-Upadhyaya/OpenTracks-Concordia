@@ -170,7 +170,7 @@ public class TrackRecordingService extends Service implements TrackPointCreator.
 
         // Set recording status
         Track.Id trackId = trackRecordingManager.startNewTrack(trackPointCreator);
-        updateRecordingStatus(RecordingStatus.record(trackId));
+        updateRecordingStatus(RecordingStatus.Record(trackId));
 
         startRecording();
         return trackId;
@@ -183,7 +183,7 @@ public class TrackRecordingService extends Service implements TrackPointCreator.
             return;
         }
 
-        updateRecordingStatus(RecordingStatus.record(trackId));
+        updateRecordingStatus(RecordingStatus.Record(trackId));
 
         startRecording();
     }
@@ -276,12 +276,12 @@ public class TrackRecordingService extends Service implements TrackPointCreator.
         }
     }
 
-    public Marker.Id insertMarker(String name, String category, String description, String photoUrl) {
+    public Marker.Id insertMarker(String name, String category, String description, String photoUrl,Double temperatureCelsius, Double temperatureFahrenheit, String weatherCondition) {
         if (!isRecording()) {
             return null;
         }
 
-        return trackRecordingManager.insertMarker(name, category, description, photoUrl);
+        return trackRecordingManager.insertMarker(name, category, description, photoUrl, temperatureCelsius, temperatureFahrenheit,weatherCondition);
     }
 
     @Deprecated

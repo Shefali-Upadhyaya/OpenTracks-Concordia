@@ -1,4 +1,4 @@
-package de.dennisguse.opentracks.io.file.importer;
+    package de.dennisguse.opentracks.io.file.importer;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -78,6 +78,7 @@ public abstract class DirectoryChooserActivity extends AppCompatActivity {
         }
     }
 
+
     public static class ExportDirectoryChooserActivity extends DirectoryChooserActivity {
 
         @Override
@@ -97,6 +98,7 @@ public abstract class DirectoryChooserActivity extends AppCompatActivity {
             Intent intent = IntentUtils.newIntent(this, ExportActivity.class);
             intent.putExtra(ExportActivity.EXTRA_DIRECTORY_URI_KEY, directoryUri);
             intent.putExtra(ExportActivity.EXTRA_TRACKFILEFORMAT_KEY, PreferencesUtils.getExportTrackFileFormat());
+            intent.putExtra(ExportActivity.TYPE_OF_CLICK, "local");
             return intent;
         }
     }
@@ -124,10 +126,8 @@ public abstract class DirectoryChooserActivity extends AppCompatActivity {
         protected DocumentFile configureDirectoryChooserIntent(Intent intent) {
             super.configureDirectoryChooserIntent(intent);
             intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
-            if (PreferencesUtils.isDefaultExportDirectoryUri()) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PreferencesUtils.getDefaultExportDirectoryUri());
-                }
+            if (PreferencesUtils.isDefaultExportDirectoryUri() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, PreferencesUtils.getDefaultExportDirectoryUri());
             }
             return null;
         }

@@ -97,7 +97,7 @@ public class IntervalsFragment extends Fragment {
         return viewBinding.getRoot();
     }
 
-    @Deprecated //TODO This method must be re-implemented.
+    @Deprecated(since = "",forRemoval = false) //TODO This method must be re-implemented.
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -191,7 +191,8 @@ public class IntervalsFragment extends Fragment {
             return;
         }
 
-        viewBinding.intervalRate.setText(isReportSpeed ? getString(R.string.stats_speed) : getString(R.string.stats_pace));
+        // Setting the value for average pace in the interval tab, previously it was "speed" only
+        viewBinding.intervalAverageMovingPace.setText(isReportSpeed ? getString(R.string.stats_average_pace) : getString(R.string.stats_average_pace));
         LiveData<List<IntervalStatistics.Interval>> liveData = viewModel.getIntervalStats(trackId, unitSystem, selectedInterval);
         liveData.observe(getActivity(), intervalList -> adapter.swapData(intervalList, unitSystem, isReportSpeed));
 

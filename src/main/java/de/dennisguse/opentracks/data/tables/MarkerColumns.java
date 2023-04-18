@@ -54,6 +54,12 @@ public interface MarkerColumns extends BaseColumns {
 
     String PHOTOURL = "photoUrl"; // url for the photo
 
+    String TEMPERATURECELSIUS="temperaturecelsius"; //temperature in celsius
+
+    String TEMPERATUREFAHRENHEIT="temperaturefahrenheit"; //temperature in fahrenheit
+
+    String WEATHERCONDITION ="weathercondition"; //weather condition
+
     String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + " ("
             + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + NAME + " TEXT, "
@@ -70,6 +76,9 @@ public interface MarkerColumns extends BaseColumns {
             + ACCURACY + " FLOAT, "
             + BEARING + " FLOAT, "
             + PHOTOURL + " TEXT, "
+            + TEMPERATURECELSIUS + " FLOAT, "
+            + TEMPERATUREFAHRENHEIT + " FLOAT, "
+            + WEATHERCONDITION + "TEXT, "
             + "FOREIGN KEY (" + TRACKID + ") REFERENCES " + TracksColumns.TABLE_NAME + "(" + TracksColumns._ID + ") ON UPDATE CASCADE ON DELETE CASCADE"
             + ")";
 
