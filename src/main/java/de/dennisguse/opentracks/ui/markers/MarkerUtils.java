@@ -22,11 +22,16 @@ import de.dennisguse.opentracks.R;
 import de.dennisguse.opentracks.data.models.Track;
 import de.dennisguse.opentracks.util.FileUtils;
 
-public class MarkerUtils {
+public final class MarkerUtils {
 
     private static final String TAG = FileUtils.class.getSimpleName();
 
+    /**
+     * Default access icon resource ID for markers.
+     * Note: Access modifier is default (no modifier specified).
+     */
     static final int ICON_ID = R.drawable.ic_marker_orange_pushpin_with_shadow;
+
     private static final String JPEG_EXTENSION = "jpeg";
 
     private MarkerUtils() {
