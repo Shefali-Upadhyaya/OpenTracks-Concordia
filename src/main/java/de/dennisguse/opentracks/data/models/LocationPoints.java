@@ -36,6 +36,13 @@ public class LocationPoints extends Service implements LocationListener {
         this.trackId = trackId;
     }
 
+    public Double getLatitude(){
+        return  s_latitude;
+    }
+
+    public Double getLongitude(){
+        return  s_longitude;
+    }
     public LocationPoints(Track.Id trackId, Double s_latitude, Double s_longitude, Double e_latitude, Double e_longitude){
         this.trackId = trackId;
         this.s_latitude = s_latitude;
@@ -44,13 +51,14 @@ public class LocationPoints extends Service implements LocationListener {
         this.e_longitude = e_longitude;
     }
 
+
     @SuppressLint("MissingPermission")
     public void getS_latitudeLongitude(Location locationGPS) {
         if (locationGPS != null) {
             s_latitude = locationGPS.getLatitude();
             s_longitude = locationGPS.getLongitude();
         } else {
-            Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
             s_latitude = 45.496944;
             s_longitude = -73.578056;
         }
@@ -62,7 +70,7 @@ public class LocationPoints extends Service implements LocationListener {
             e_longitude = locationGPS.getLongitude();
 
         } else {
-            Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "Location Services Off. Using default Location", Toast.LENGTH_LONG).show();
             e_latitude = 45.496944;
             e_longitude = -73.578056;
         }

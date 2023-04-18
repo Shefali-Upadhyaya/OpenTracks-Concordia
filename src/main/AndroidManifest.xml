@@ -62,6 +62,13 @@
         android:localeConfig="@xml/locales_config"
         android:supportsRtl="true"
         android:theme="@style/ThemeCustom" >
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAkuza7kZsVy-X3DPBY-wuEoyqXSQsfTHg" />
+
+        <activity android:name=".ViewTrackMap"/>
+
         <activity
             android:name=".publicapi.StartRecording"
             android:exported="true"
