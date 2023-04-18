@@ -15,7 +15,7 @@
  */
 
 package de.dennisguse.opentracks.ui.markers;
-
+#imports
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
