@@ -56,8 +56,6 @@ public class MarkerListActivity extends AbstractActivity implements DeleteMarker
 
     public static final String EXTRA_TRACK_ID = "track_id";
 
-    private static final String TAG = MarkerListActivity.class.getSimpleName();
-
     private ContentProviderUtils contentProviderUtils;
 
     private RecordingStatus recordingStatus = TrackRecordingService.STATUS_DEFAULT;
@@ -300,7 +298,7 @@ public class MarkerListActivity extends AbstractActivity implements DeleteMarker
 
     private class MarkerLoaderCallback implements LoaderManager.LoaderCallbacks<Cursor> {
 
-        private String searchQuery = null;
+        private String searchQuery;
 
         public String getSearchQuery() {
             return searchQuery;
