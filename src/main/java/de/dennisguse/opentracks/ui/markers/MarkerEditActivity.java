@@ -114,8 +114,7 @@ public class MarkerEditActivity extends AbstractActivity {
         viewBinding.markerEditDone.setOnClickListener(v -> {
             viewModel.onDone(viewBinding.markerEditName.getText().toString(),
                     viewBinding.markerEditMarkerType.getText().toString(),
-                    viewBinding.markerEditDescription.getText().toString(),
-                    null, null, null);
+                    viewBinding.markerEditDescription.getText().toString());
             finish();
         });
 
@@ -237,7 +236,7 @@ public class MarkerEditActivity extends AbstractActivity {
             viewBinding.markerEditPhoto.setImageBitmap(bitmap);
             hideAndShowOptions();
         } catch (IOException e) {
-            Log.e(TAG, "" + e);
+            Log.e(TAG, "Error while adding photo to marker: " + e.getMessage(), e);
             Toast.makeText(this, R.string.marker_add_photo_canceled, Toast.LENGTH_LONG).show();
         }
     }
