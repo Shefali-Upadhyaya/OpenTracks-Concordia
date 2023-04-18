@@ -527,8 +527,8 @@ public class ExportImportTest {
 
     private void mockAltitudeChange(TrackPointCreator trackPointCreator, float altitudeGain) {
         AltitudeSumManager altitudeSumManager = trackPointCreator.getAltitudeSumManager();
-        altitudeSumManager.setAltitudeGain_m(altitudeGain);
-        altitudeSumManager.setAltitudeLoss_m(altitudeGain);
+        altitudeSumManager.setAltitudeGainM(altitudeGain);
+        altitudeSumManager.setAltitudeLossM(altitudeGain);
     }
 
     private void sendLocation(TrackPointCreator trackPointCreator, String time, double latitude, double longitude, float accuracy, float verticalAccuracy, float speed, float altitude, float altitudeGain) {

@@ -22,6 +22,7 @@ import androidx.annotation.VisibleForTesting;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.TreeSet;
 
 import de.dennisguse.opentracks.data.models.Altitude;
 import de.dennisguse.opentracks.data.models.Distance;
@@ -42,7 +43,8 @@ public class TrackStatistics {
 
     // The min and max altitude (meters) seen on this track.
     private final ExtremityMonitor altitudeExtremities = new ExtremityMonitor();
-
+    public TreeSet<Float> gainList = new TreeSet<>();
+    public TreeSet<Float> lossList = new TreeSet<>();
     // The track start time.
     private Instant startTime;
     // The track stop time.
@@ -356,7 +358,9 @@ public class TrackStatistics {
         if (totalAltitudeGain_m == null) {
             totalAltitudeGain_m = 0f;
         }
-        totalAltitudeGain_m += gain_m;
+        gainList.add(gain_m);
+        totalAltitudeGain_m = gainList.last();
+
     }
 
     public boolean hasTotalAltitudeLoss() {
@@ -377,7 +381,9 @@ public class TrackStatistics {
         if (totalAltitudeLoss_m == null) {
             totalAltitudeLoss_m = 0f;
         }
-        totalAltitudeLoss_m += loss_m;
+        lossList.add(loss_m);
+        totalAltitudeLoss_m = lossList.last();
+
     }
 
     @Override

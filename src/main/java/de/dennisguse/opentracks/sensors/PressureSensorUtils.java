@@ -18,29 +18,29 @@ public class PressureSensorUtils {
 
     public static class AltitudeChange {
 
-        private final float currentSensorValue_hPa;
+        private final float currentSensorValueHPa;
 
-        private final float altitudeChange_m;
+        private final float altitudeChangeM;
 
-        public AltitudeChange(float currentSensorValue_hPa, float altitudeChange_m) {
-            this.currentSensorValue_hPa = currentSensorValue_hPa;
-            this.altitudeChange_m = altitudeChange_m;
+        public AltitudeChange(float currentSensorValueHPa, float altitudeChangeM) {
+            this.currentSensorValueHPa = currentSensorValueHPa;
+            this.altitudeChangeM = altitudeChangeM;
         }
 
-        public float getCurrentSensorValue_hPa() {
-            return currentSensorValue_hPa;
+        public float getCurrentSensorValueHPa() {
+            return currentSensorValueHPa;
         }
 
-        public float getAltitudeChange_m() {
-            return altitudeChange_m;
+        public float getAltitudeChangeM() {
+            return altitudeChangeM;
         }
 
-        public float getAltitudeGain_m() {
-            return altitudeChange_m > 0 ? altitudeChange_m : 0;
+        public float getAltitudeGainM() {
+            return altitudeChangeM > 0 ? altitudeChangeM : 0;
         }
 
-        public float getAltitudeLoss_m() {
-            return altitudeChange_m < 0 ? -1 * altitudeChange_m : 0;
+        public float getAltitudeLossM() {
+            return altitudeChangeM < 0 ? -1 * altitudeChangeM : 0;
         }
     }
 
@@ -54,18 +54,18 @@ public class PressureSensorUtils {
     }
 
     @VisibleForTesting
-    public static AltitudeChange computeChanges(float lastAcceptedSensorValue_hPa, float currentSensorValue_hPa) {
+    public static AltitudeChange computeChanges(float lastAcceptedSensorValue_hPa, float currentSensorValueHPa) {
         float lastSensorValue_m = SensorManager.getAltitude(p0, lastAcceptedSensorValue_hPa);
-        float currentSensorValue_m = SensorManager.getAltitude(p0, currentSensorValue_hPa);
+        float currentSensorValue_m = SensorManager.getAltitude(p0, currentSensorValueHPa);
 
-        float altitudeChange_m = currentSensorValue_m - lastSensorValue_m;
-        if (Math.abs(altitudeChange_m) < ALTITUDE_CHANGE_DIFF_M) {
+        float altitudeChangeM = currentSensorValue_m - lastSensorValue_m;
+        if (Math.abs(altitudeChangeM) < ALTITUDE_CHANGE_DIFF_M) {
             return null;
         }
 
         // Limit altitudeC change by ALTITUDE_CHANGE_DIFF and computes pressure value accordingly.
-        AltitudeChange altitudeChange = new AltitudeChange(currentSensorValue_hPa, altitudeChange_m);
-        if (altitudeChange.getAltitudeChange_m() > 0) {
+        AltitudeChange altitudeChange = new AltitudeChange(currentSensorValueHPa, altitudeChangeM);
+        if (altitudeChange.getAltitudeChangeM() > 0) {
             return new AltitudeChange(getBarometricPressure(lastSensorValue_m + ALTITUDE_CHANGE_DIFF_M), ALTITUDE_CHANGE_DIFF_M);
         } else {
             return new AltitudeChange(getBarometricPressure(lastSensorValue_m - ALTITUDE_CHANGE_DIFF_M), -1 * ALTITUDE_CHANGE_DIFF_M);
