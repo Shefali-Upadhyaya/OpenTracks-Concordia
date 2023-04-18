@@ -1,9 +1,13 @@
 package de.dennisguse.opentracks;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -26,12 +30,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayoutMediator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.dennisguse.opentracks.chart.ChartFragment;
 import de.dennisguse.opentracks.chart.TrackDataHubInterface;
 import de.dennisguse.opentracks.data.ContentProviderUtils;
 import de.dennisguse.opentracks.data.TrackDataHub;
+import de.dennisguse.opentracks.data.models.LocationPoints;
 import de.dennisguse.opentracks.data.models.Track;
 import de.dennisguse.opentracks.databinding.TrackRecordingBinding;
 import de.dennisguse.opentracks.fragments.ChooseActivityTypeDialogFragment;
@@ -55,7 +61,7 @@ import de.dennisguse.opentracks.util.TrackIconUtils;
  * @author Leif Hendrik Wilden
  * @author Rodrigo Damazio
  */
-public class TrackRecordingActivity extends AbstractActivity implements ChooseActivityTypeDialogFragment.ChooseActivityTypeCaller, TrackDataHubInterface {
+public class TrackRecordingActivity extends AbstractActivity implements ChooseActivityTypeDialogFragment.ChooseActivityTypeCaller, TrackDataHubInterface, LocationListener {
 
     public static final String EXTRA_TRACK_ID = "track_id";
 
@@ -74,7 +80,11 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
 
     private Track.Id trackId;
 
+    private LocationPoints loc;
+
     private RecordingStatus recordingStatus = TrackRecordingService.STATUS_DEFAULT;
+
+    public static List<LocationPoints> locationPointsList = new ArrayList<LocationPoints>();
 
     private final TrackRecordingServiceConnection.Callback bindChangedCallback = (service, unused) -> {
         service.getRecordingStatusObservable()
@@ -210,6 +220,18 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
 
         trackRecordingServiceConnection.startConnection(this);
         trackDataHub.start();
+
+        loc = new LocationPoints(trackId);
+        LocationManager locationManager = null;
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 5F, this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+        @SuppressLint("MissingPermission") Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        loc.getS_latitudeLongitude(locationGPS);
     }
 
     @Override
@@ -240,6 +262,21 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
         PreferencesUtils.unregisterOnSharedPreferenceChangeListener(sharedPreferenceChangeListener);
         trackRecordingServiceConnection.unbind(this);
         trackDataHub.stop();
+
+        LocationManager locationManager = null;
+        try {
+            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000L, 5F, this);
+        }
+        catch(SecurityException e) {
+            e.printStackTrace();
+        }
+        @SuppressLint("MissingPermission") Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        loc.getE_latitudeLongitude(locationGPS);
+
+        //Write to storage
+        locationPointsList.add(loc);
+
     }
 
     @Override
@@ -321,6 +358,11 @@ public class TrackRecordingActivity extends AbstractActivity implements ChooseAc
         Track track = contentProviderUtils.getTrack(trackId);
         String category = getString(TrackIconUtils.getIconActivityType(iconValue));
         ContentProviderUtils.updateTrack(this, track, null, category, null, contentProviderUtils);
+    }
+
+    @Override
+    public void onLocationChanged(@NonNull Location location) {
+
     }
 
     private class CustomFragmentPagerAdapter extends FragmentStateAdapter {

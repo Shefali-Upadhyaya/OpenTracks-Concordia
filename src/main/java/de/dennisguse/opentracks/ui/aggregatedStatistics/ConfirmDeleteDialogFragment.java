@@ -67,16 +67,17 @@ public class ConfirmDeleteDialogFragment extends DialogFragment {
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Track.Id[] trackIds = (Track.Id[]) getArguments().getParcelableArray(KEY_TRACK_IDS);
+        Bundle arguments = getArguments();
 
-        int titleId = trackIds.length > 1 ? R.string.generic_delete_selected_confirm_title : R.string.track_delete_one_confirm_title;
-        int messageId = trackIds.length > 1 ? R.string.track_delete_multiple_confirm_message : R.string.track_delete_one_confirm_message;
-        return DialogUtils.createConfirmationDialog(
-                getActivity(),
-                titleId,
-                getString(messageId),
-                (dialog, which) -> caller.onConfirmDeleteDone(trackIds)
-        );
+        if (arguments != null) {
+            final Track.Id[] trackIds = arguments.getParcelableArray(KEY_TRACK_IDS, Track.Id.class);
+
+            int titleId = trackIds.length > 1 ? R.string.generic_delete_selected_confirm_title : R.string.track_delete_one_confirm_title;
+            int messageId = trackIds.length > 1 ? R.string.track_delete_multiple_confirm_message : R.string.track_delete_one_confirm_message;
+            return DialogUtils.createConfirmationDialog(getActivity(), titleId, getString(messageId), (dialog, which) -> caller.onConfirmDeleteDone(trackIds));
+        } else {
+            return DialogUtils.createErrorDialog(getActivity(), R.string.import_progress_summary_errors_msg, getString(R.string.import_progress_summary_errors_msg));
+        }
     }
 
     /**
